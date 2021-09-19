@@ -8,6 +8,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 
+import com.ihusain.model.Account;
 import com.ihusain.model.Employee;
 
 public class HibernateUtil {
@@ -29,7 +30,8 @@ public class HibernateUtil {
 	        settings.put(Environment.SHOW_SQL, "true");
 	        
 	        configuration.setProperties(settings);
-	        configuration.addAnnotatedClass(Employee.class);		
+	        configuration.addAnnotatedClass(Employee.class);
+	        configuration.addAnnotatedClass(Account.class);
 	
 	        StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 					.applySettings(configuration.getProperties()).build();

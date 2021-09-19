@@ -1,11 +1,17 @@
 package com.ihusain.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,11 +22,24 @@ public class Employee implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
+	private int id;
 
-	String name;
+	private String name;
 
-	int salary;
+	private int salary;
+	
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@JoinColumn(name = "emp_id")
+	List<Account> accounts  = new ArrayList<>();
+	
+	public Employee() {
+		super();
+	}
+
+	public Employee(int id) {
+		super();
+		this.id = id;
+	}
 
 	public Employee(String name, int salary) {
 		super();
@@ -50,6 +69,14 @@ public class Employee implements Serializable {
 
 	public void setSalary(int salary) {
 		this.salary = salary;
+	}
+	
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
 	}
 
 	@Override
